@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->text('long_description')->nullable();
+            $table->boolean('completed')->default(false);
             $table->timestamps(); #created-updated_at columns
 
         });
