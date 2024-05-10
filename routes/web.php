@@ -91,8 +91,12 @@ Route::get('/tasks', function () {
         //php artisan tinker in terminal :\App\Models\Task::all();
         //                                :\App\Models\Task::select('id','title')->where('completed',true)->get();
         //  lefut a tinkerben a query builder-ben, amit a laravel dokumentációja tartalmaz
-        'tasks' => Task::latest()->get()
-    ]);
+        // 'tasks' => Task::latest()->get()
+
+        'tasks' => Task::latest()->paginate(7)
+        // feloldalazza a weboldalt ha túl sok task lenne, így csak egy részét mutatja meg a felhasználónak
+        // az index.bladeben a @if hivatkozik rá, hogy csak akkor töltse be a pagination-t ha több mint egy oldalnyi task van
+ ]);
 })->name('tasks.index');
 
 Route::view('/tasks/create', 'create')

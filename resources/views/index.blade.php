@@ -28,5 +28,10 @@
     </div>
     @endforelse
 <!-- //same result as the previous one with if else -->
+@if ($tasks->count())
+        <nav>{{ $tasks->links() }}</nav>
+
+@endif
+
 @endsection
 
