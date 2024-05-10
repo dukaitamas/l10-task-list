@@ -24,7 +24,11 @@
         {{-- always include this to any form by default exceptions can be made in middleware csfr --}}
         <div>
             <label for="title">Title</label>
-            <input text="text" name="title" id="title">
+            <input text="text" name="title" id="title" value="{{ old('title') }}" />
+            {{-- can be used only for post method and PUT method now, cuz i used it as spoofing in edit.blade. but dont really use it where security needed!!! --}}
+            {{-- this keeping the OLD data in the input label field, that is why USE NEVER USE it where passwords or any other
+            sensitive info is needed.!! --}}
+
             @error ('title')
                 <p class="error-message">  {{ $message }} </p>
             @enderror
@@ -33,7 +37,7 @@
 
         <div>
             <label for="description"> Description </label>
-            <textarea name="description" id="description" rows="5"></textarea>
+            <textarea name="description" id="description" rows="5"> {{ old('description') }} </textarea>
             @error('description')
             <p class="error-message">  {{ $message }} </p>
         @enderror
@@ -41,7 +45,7 @@
 
         <div>
             <label for="long_description">Long Description </label>
-            <textarea name="long_description" id="long_description" rows="10"></textarea>
+            <textarea name="long_description" id="long_description" rows="10">   {{ old('long_description') }}</textarea>
             @error('long_description')
             <p class="error-message">  {{ $message }} </p>
         @enderror
