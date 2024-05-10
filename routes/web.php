@@ -1,7 +1,7 @@
 <?php
 
 // use GuzzleHttp\Psr7\Request;
-
+use App\Http\Requests\TaskRequest;
 use App\Models\Task;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
@@ -73,6 +73,7 @@ use Illuminate\Support\Facades\Route;
 //   ),
 // ];
 
+
 Route::get('/', function () {
     return redirect()->route('tasks.index');
 });
@@ -97,17 +98,25 @@ Route::get('/tasks', function () {
 Route::view('/tasks/create', 'create')
     ->name('tasks.create');
 
-Route::get('/tasks{id}/edit', function ($id) {
+
+// Route::get('/tasks{id}/edit', function ($id) {
+//     return view('edit', [
+//         'task' => Task::findOrFail($id)
+//     ]);
+// })->name('tasks.edit');   ↓↓↓↓↓ this one under is the same just different ↓↓↓↓
+Route::get('/tasks{task}/edit', function (Task $task) {
     return view('edit', [
-        'task' => Task::findOrFail($id)
+        'task' => $task
     ]);
 })->name('tasks.edit');
 
 
-Route::get('/tasks{id}', function ($id) {
+// Route::get('/tasks{id}', function ($id) {
+Route::get('/tasks{task}', function (Task $task) {
     return view('show', [
         //return view('show', ['task' => Task::findOrFail($id)
-        'task' => Task::findOrFail($id)
+        // 'task' => Task::findOrFail($id)
+        'task'  => $task
     ]);
 })->name('tasks.show');
 
@@ -120,41 +129,44 @@ Route::get('/tasks{id}', function ($id) {
 //     return view('show', ['task' => \App\Models\Task::findOrFail($id)]);
 // })->name('tasks.show');
 
-Route::post('/tasks', function (Request $request) {
+// Route::post('/tasks', function (Request $request) {
     //dd('We have reached the store route');
     //dd($request->all());
-    $data = $request->validate([
-        'title' => 'required|max:255',
-        'description' => 'required',
-        'long_description' => 'required'
-    ]);
-
+    // $data = $request->validate([
+    //     'title' => 'required|max:255',
+    //     'description' => 'required',
+    //     'long_description' => 'required'
+    // ]);
     // session vali9adation stores in config/session.php , and there you shouldn't store it in "files" but in "database" or "redis" for production
-
-    $task = new Task;
-    $task->title = $data['title'];
-    $task->description = $data['description'];
-    $task->long_description = $data['long_description'];
-    $task->save();
-
-    return redirect()->route('tasks.show', ['id' => $task->id])
+    // $task = new Task;
+    // $task->title = $data['title'];
+    // $task->description = $data['description'];
+    // $task->long_description = $data['long_description'];
+    // $task->save();
+    Route::post('/tasks', function (TaskRequest $request) {
+        $task = Task::create($request->validated());
+    // return redirect()->route('tasks.show', ['id' => $task->id])
+    return redirect()->route('tasks.show', ['task' => $task->id])
         ->with('success', 'Task created successfully!');
 })->name('tasks.store');
 
 
-Route::put('/tasks/{id}', function ($id, Request $request) {
-    $data = $request->validate([
-        'title' => 'required|max:255',
-        'description' => 'required',
-        'long_description' => 'required'
-    ]);
-    $task = Task::findOrFail($id);
-    $task->title = $data['title'];
-    $task->description = $data['description'];
-    $task->long_description = $data['long_description'];
-    $task->save();
+// Route::put('/tasks/{id}', function ($id, Request $request) {
+// Route::put('/tasks/{task}', function (Task $task, Request $request) {
 
-    return redirect()->route('tasks.show', ['id' => $task->id])
+//     $data = $request->validate([
+//         'title' => 'required|max:255',
+//         'description' => 'required',
+//         'long_description' => 'required'
+//     ]);
+    // $task = Task::findOrFail($id);
+    // $task->title = $data['title'];
+    // $task->description = $data['description'];
+    // $task->long_description = $data['long_description'];
+    // $task->save();
+    Route::put('/tasks/{task}', function (Task $task, TaskRequest $request) {
+        $task->update($request->validated());
+    return redirect()->route('tasks.show', ['task' => $task->id])
         ->with('success', 'Task updated successfully!');
 })->name('tasks.update');
 
@@ -169,6 +181,14 @@ Route::put('/tasks/{id}', function ($id, Request $request) {
 // Route::get('/greet/{name}', function ($name) {
 //     return ('Hello '. $name . '!');
 // });
+
+Route::delete('/tasks/{task}', function (Task $task) {
+    $task->delete();
+
+    return redirect()->route('tasks.index')
+        ->with('success', 'Task deleted successfully!');
+})->name('tasks.destroy');
+
 
 Route::fallback(function () {
     return ('Page not found');

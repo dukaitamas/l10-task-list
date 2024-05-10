@@ -14,7 +14,9 @@
 @endsection
 
 @section('content')
-    <form method="POST" action="{{ route('tasks.update', ['id' => $task->id]) }}">
+<form method="POST" action="{{ route('tasks.update', ['task' => $task->id]) }}">
+
+    {{-- <form method="POST" action="{{ route('tasks.update', ['id' => $task->id]) }}"> --}}
         {{-- in html you only can use post and get method!! but if you want to use PUT method there is a laravel method for that
         @method('PUT') you need to use this method to update a record: it is called method spoofing --}}
         @csrf
