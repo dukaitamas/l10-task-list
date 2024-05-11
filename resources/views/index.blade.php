@@ -6,9 +6,9 @@
 {{-- <!-- @isset($name)
 <div>The name is: {{ $name }}</div> --}}
 {{-- @endisset --> --}}
-<div>
-    <a href="{{ route('tasks.create') }}">Add Task!</a>
-  </div>
+<nav class="mb-4">
+    <a href="{{ route('tasks.create') }}" class="font-medium text-gray-700 underline decoration-pink-500">Add Task!</a>
+</nav>
 
 <!-- //<div> -->
     {{-- <!-- @if(count($tasks) ) -->
@@ -22,7 +22,7 @@
 <!-- </div> -->
  @forelse($tasks as $task)
     <div>
-         <a href="{{ route('tasks.show',['task'=> $task->id]) }}">{{ $task->title }}</a>
+         <a href="{{ route('tasks.show',['task'=> $task->id]) }}" @class(['line-through'=> $task->completed])>{{ $task->title }}</a>
          {{-- 'id'=> changed to task --}}
         </div>
     @empty
@@ -30,7 +30,7 @@
     @endforelse
 <!-- //same result as the previous one with if else -->
 @if ($tasks->count())
-        <nav>{{ $tasks->links() }}</nav>
+        <nav class="mt-4">{{ $tasks->links() }}</nav>
 
 @endif
 
