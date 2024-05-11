@@ -50,15 +50,14 @@
     <h1 class="text-2xl mb-4">@yield('title')</h1>
     {{-- ↓↓↓↓↓↓↓  alpine.js x-data and it works in this box only ↓↓↓↓↓↓ --}}
     <div x-data="{ flash: true }">
-        {{-- @if (session()->has('success')) --}}
-        {{-- <div>{{ session('success') }}</div> --}}
+        @if (session()->has('success'))
         <div x-show="flash"
         {{-- ↑↑↑↑↑ alpine.js↑↑↑↑ --}}
         class=" relative mb-9 rounded border border-green-200
             bg-green-100 px-4 py-3 text-lg text-green-700"
             role="alert">
             <strong class="font-bold">Success!</strong>
-            <div>This is a flash message!</div>
+            <div>{{ session('success') }}</div>
 
             {{-- ↑↑↑ relative and absolute positioning to get that X close button inside the green box↓↓↓↓↓ --}}
 
@@ -72,7 +71,7 @@
             </span>
         </div>
 
-        {{-- @endif --}}
+        @endif
         @yield('content')
 
 
