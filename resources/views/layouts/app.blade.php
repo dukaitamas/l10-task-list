@@ -5,6 +5,19 @@
     <title>Laravel 10 Task List App </title>
     <script src="https://cdn.tailwindcss.com"></script>
     {{-- cdn: content delivery network , distributed network of servers -reduces latency --}}
+  {{-- blade formatter-disable --}}
+    <style type="text/tailwindcss">
+        .btn {
+            @apply rounded-md px-2 py-1 text-center font-medium text-slate-600
+            shadow-sm ring-1 ring-slate-700/10 hover:bg-slate-50
+        }
+
+        .link{
+            @apply font-medium text-gray-700 underline decoration-pink-500
+        }
+    </style>
+  {{-- blade formatter extension disabled only for this style file --}}
+  {{-- blade formatter-enable --}}
 
     @yield('styles')
 </head>
