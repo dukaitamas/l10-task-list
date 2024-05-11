@@ -172,7 +172,24 @@ Route::get('/tasks{task}', function (Task $task) {
         $task->update($request->validated());
     return redirect()->route('tasks.show', ['task' => $task->id])
         ->with('success', 'Task updated successfully!');
-})->name('tasks.update');
+    })->name('tasks.update');
+
+    Route::delete('/tasks/{task}', function (Task $task) {
+        $task->delete();
+
+        return redirect()->route('tasks.index')
+            ->with('success', 'Task deleted successfully!');
+    })->name('tasks.destroy');
+
+    Route::put('tasks/{task}/toggle-complete', function (Task $task) {
+        $task->toggleComplete();
+
+        // $task->save();
+
+        return redirect()->back()->with('success', 'Task updated successfully!');
+    })->name('tasks.toggle-complete');
+
+
 
 // Route::get('/xxx', function () {
 //     return ('Hello') ->name('hello');
@@ -186,14 +203,8 @@ Route::get('/tasks{task}', function (Task $task) {
 //     return ('Hello '. $name . '!');
 // });
 
-Route::delete('/tasks/{task}', function (Task $task) {
-    $task->delete();
-
-    return redirect()->route('tasks.index')
-        ->with('success', 'Task deleted successfully!');
-})->name('tasks.destroy');
 
 
 Route::fallback(function () {
-    return ('Page not found');
+    return ('Still got somewhere!');
 });

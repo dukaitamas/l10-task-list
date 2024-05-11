@@ -14,6 +14,12 @@ class Task extends Model
     // do not give sensitive information into fillable like passwords
     // protected $guarded = ['secret'];  fillable kinda safer
 
+
+    public function toggleComplete(){
+        $this->completed = !$this->completed;
+        $this->save();
+    }
+
 }
 
 
