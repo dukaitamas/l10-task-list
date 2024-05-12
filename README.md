@@ -1,8 +1,11 @@
+There are plethora of green comments in the codes....the comments are for me this is how i study: write,read and recognize.
+<hr>
 laravel-10 (https://laravel.com/docs/10.x) <br>
 alpine.js v3.13 (https://alpinejs.dev/)  "Your new, lightweight, JavaScript framework."  Not the same as VUEJS!    <br>
 https://tailwindcss.com/  <br> 
 task list- tailwinds for the little styles and alpine js for the X (close) button in the green Success! box to actually make the X svg button to interactive.
-
+<hr>
+<hr>
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
